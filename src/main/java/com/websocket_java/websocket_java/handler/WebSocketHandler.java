@@ -8,9 +8,14 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
+
+    // Executado assim que a conexão é estabelecida
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("[afterConnectionEstablished] session id " + session.getId());
+
+        // É possível enviar mensagens do back-end
+        session.sendMessage(new TextMessage("Mensagem do back-end!"));
     }
 
     @Override
@@ -22,4 +27,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         System.out.println("[afterConnectionClosed] session id " + session.getId());
     }
+
+
 }
