@@ -6,6 +6,11 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.UUID;
+
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 
@@ -16,6 +21,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         // É possível enviar mensagens do back-end
         session.sendMessage(new TextMessage("Mensagem do back-end!"));
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    session.sendMessage(new TextMessage("Olá " + UUID.randomUUID()));
+                }
+                catch(IOException error) {
+                    System.out.println(error.getMessage());
+                }
+            }
+        }, 2000L, 2000L);
     }
 
     @Override
