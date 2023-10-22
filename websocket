@@ -1,0 +1,22 @@
+WebSocket é um protocolo de conexão, assim como o HTTP.
+A diferença entre os dois é que o HTTP fecha a conexão com o servidor após a requisição / resposta. Isso torna impossível a existência de
+conteúdo em tempo real, por exemplo. O WebSocket, em contraponto, não fecha a conexão com o servidor. Dizer isso significa que é possível
+mandar requisições e respostas em tempo real.
+O WebSocket economiza muito do ponto de vista de IO. Sem ele, seria necessário fazer um pulling para que consigamos obter dados em tempo real
+em HTTP e ainda assim não estamos falando de algo completamente em tempo real.
+Entretanto, o WebSocket abre uma conexão com o servidor e assim se mantém. Isso se torna um problema, pois é necessário utilizar muitos
+mecânismos para checar a conexão e verificar se ela permanece saudável com constância. Esse problema não é nada perto de fazer pulling com HTTP,
+mas não é algo que precisamos encarar em situações que não necessita de dados em tempo real.
+O que significa dizer? WebSocket só vale a pena se usarmos para trafego de dados em tempo real.
+
+Para começar, insira a dependência:
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-websocket</artifactId>
+    <version>6.0.13</version>
+</dependency>
+
+Depois, crie um handler. O handler é o equivalente ao controller do protocolo HTTP / REST
+No Component, use extends do jeito que foi feito neste tutorial. Clique com o botão direito, Generate e Override. Selecione os métodos
+que utilizamos aqui. É o padrão para lidar com requisições websocket.
