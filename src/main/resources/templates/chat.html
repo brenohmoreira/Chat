@@ -7,8 +7,33 @@
 <body>
     <h1> Chat </h1>
 
+    <div>
+        <input type="text" id="message">
+        <button id="send-button"> Enviar </button>
+    </div>
+
+    <div>
+        <ul id="mensagens-recebidas"></ul>
+    </div>
+
     <script>
-        new WebSocket("ws://localhost:8080/chat/return");
+        let ws = new WebSocket("ws://localhost:8080/chat/return");
+
+        let message = document.getElementById("message");
+        let sendButton = document.getElementById("send-button");
+        let list = document.getElementById("mensagens-recebidas");
+
+        // Enviar mensagem
+        sendButton.onclick = function() {
+            ws.send(message.value);
+        }
+
+        // Ao receber mensagem
+        ws.onmessage = function(event) {
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(event.data));
+            list.appendChild(li);
+        }
     </script>
 </body>
 </html>
