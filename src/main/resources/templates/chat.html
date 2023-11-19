@@ -1,32 +1,39 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Curso Chat</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title> Chat </title>
 </head>
-
 <body>
-<h1>Curso Chat</h1>
+    <h1> Chat </h1>
 
-<div class="checking-auth-area">
-    Verificando login...
-</div>
+    <div>
+        <input type="text" id="message">
+        <button id="send-button"> Enviar </button>
+    </div>
 
-<div class="non-auth-area">
-    <button id="login-button"> Entrar </button>
-</div>
+    <div>
+        <ul id="mensagens-recebidas"></ul>
+    </div>
 
-<div class="auth-area">
-    <nav>
-        <button id="get-jwt-button"> Obter token JWT ( teste ) </button>
-        <button id="logout-button"> Sair </button>
-    </nav>
-    <p>Olá, <span class="user-name"> ... </span></p>
-</div>
+    <script>
+        let ws = new WebSocket("ws://localhost:8080/chat/return");
 
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/index.js"></script>
+        let message = document.getElementById("message");
+        let sendButton = document.getElementById("send-button");
+        let list = document.getElementById("mensagens-recebidas");
+
+        // Enviar mensagem
+        sendButton.onclick = function() {
+            ws.send(message.value);
+        }
+
+        // Ao receber mensagem
+        ws.onmessage = function(event) {
+            let li = document.createElement("li");
+            li.appendChild(document.createTextNode(event.data));
+            list.appendChild(li);
+        }
+    </script>
 </body>
-
 </html>
