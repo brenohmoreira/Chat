@@ -1,4 +1,3 @@
-console.log("test");
 function modify(className, modifier) {
     var elements = document.getElementsByClassName(className)
     for (var i = 0; i < elements.length; i++) {
