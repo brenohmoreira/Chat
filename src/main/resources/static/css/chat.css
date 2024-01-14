@@ -1,0 +1,73 @@
+/* Config */
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+#page-container {
+	width: 100vw;
+	height: 100vh;	
+}
+
+#username-select-container, #chat-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#chat-container {
+	display: none;
+}
+
+/* Username select style */
+
+#username-select-container {
+	background: linear-gradient(#1657f0, #0842c9);
+}
+
+#username-enter {
+	width: 25%;
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+#username-enter h3 {
+	color: #1c1c1c;
+	text-align: center;
+	font-size: 17px;
+}
+
+#username-enter input {
+	margin: 20px 0;
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	padding: 0 10px;
+	outline: none;
+	border: 1px solid gray;
+}
+
+#username-enter button {
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	background-color: #1657f0;
+	transition: .3s;
+	cursor: pointer;
+	color: white;
+}
+
+#username-enter button:hover {
+	background-color: #0842c9;
+}

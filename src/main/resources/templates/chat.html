@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title> Chat </title>
+    
+    <link rel="stylesheet" type="text/css" href="css/chat.css">
 </head>
 <body>
-    <h1> Chat </h1>
+	<div id="page-container">
+		<div id="username-select-container">
+			<div id="username-enter">
+				<h3> Selecionar nome </h3>
+				
+				<input type="text" placeholder="Digite seu nickname" id="nickname">
+				
+				<button> Entrar </button>
+			</div>
+		</div>
+		<div id="chat-container">
+		    <h1> Chat </h1>
 
-    <div>
-        <input type="text" id="message">
-        <button id="send-button"> Enviar </button>
-    </div>
-
-    <div>
-        <ul id="mensagens-recebidas"></ul>
-    </div>
+		    <div>
+		        <input type="text" id="message">
+		        <button id="send-button"> Enviar </button>
+		    </div>
+		
+		    <div>
+		        <ul id="mensagens-recebidas"></ul>
+		    </div>
+		</div>
+	</div>
 
     <script>
         let ws = new WebSocket("ws://localhost:8080/chat/return");
@@ -30,6 +45,7 @@
 
         // Ao receber mensagem
         ws.onmessage = function(event) {
+        	console.log(event);
             let li = document.createElement("li");
             li.appendChild(document.createTextNode(event.data));
             list.appendChild(li);

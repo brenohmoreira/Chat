@@ -6,10 +6,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
@@ -20,7 +16,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     // Executado assim que a conexão é estabelecida
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        sessions.add(session);
+        sessions.add(session);           
     }
 
     @Override
