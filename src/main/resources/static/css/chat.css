@@ -30,7 +30,7 @@ body {
 /* Username select style */
 
 #username-select-container {
-	background: linear-gradient(#1657f0, #0842c9);
+	background: linear-gradient(#2b7df0, #0842c9);
 }
 
 #username-enter {
@@ -43,11 +43,16 @@ body {
 #username-enter h3 {
 	color: #1c1c1c;
 	text-align: center;
-	font-size: 17px;
+	font-size: 19px;
+	margin-bottom: 20px;
+}
+
+#username-enter label {
+	font-size: 14px;
 }
 
 #username-enter input {
-	margin: 20px 0;
+	margin: 5px 0 20px 0;
 	width: 100%;
 	height: 40px;
 	border-radius: 5px;
@@ -62,12 +67,18 @@ body {
 	border-radius: 5px;
 	border: none;
 	outline: none;
-	background-color: #1657f0;
+	background-color: #2b7df0;
 	transition: .3s;
 	cursor: pointer;
 	color: white;
 }
 
 #username-enter button:hover {
-	background-color: #0842c9;
+	background-color: #1e55d6;
+}
+
+/* chat */
+
+#chat-container {
+	flex-direction: column;
 }

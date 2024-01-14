@@ -10,11 +10,12 @@
 	<div id="page-container">
 		<div id="username-select-container">
 			<div id="username-enter">
-				<h3> Selecionar nome </h3>
+				<h3> Entrar no chat </h3>
 				
-				<input type="text" placeholder="Digite seu nickname" id="nickname">
+				<label for="nickname"> Digite seu nome de usuário </label>
+				<input type="text" placeholder="Nome" id="nickname">
 				
-				<button> Entrar </button>
+				<button id="enter-name-btn"> Entrar </button>
 			</div>
 		</div>
 		<div id="chat-container">
@@ -32,24 +33,50 @@
 	</div>
 
     <script>
-        let ws = new WebSocket("ws://localhost:8080/chat/return");
+    	document.getElementById("enter-name-btn").addEventListener("click", function (event) {
+    		event.preventDefault();	
+    		
+    		const name = document.getElementById("nickname").value;
+    		
+    		if(name.length != 0) {
+        		document.getElementById("username-select-container").style.display = "none";
+        		document.getElementById("chat-container").style.display = "flex";
+        		
+                let ws = new WebSocket("ws://localhost:8080/chat/return");
+                
+                ws.onopen = function (event) {
+                    ws.send(name + " se conectou ao bate-papo");
+                };
+                
+                let message = document.getElementById("message");
+                let sendButton = document.getElementById("send-button");
+                let list = document.getElementById("mensagens-recebidas");
 
-        let message = document.getElementById("message");
-        let sendButton = document.getElementById("send-button");
-        let list = document.getElementById("mensagens-recebidas");
+                sendButton.onclick = function() {
+                    ws.send(name + ": " + message.value);
+                    message.value = "";
+                }
 
-        // Enviar mensagem
-        sendButton.onclick = function() {
-            ws.send(message.value);
-        }
-
-        // Ao receber mensagem
-        ws.onmessage = function(event) {
-        	console.log(event);
-            let li = document.createElement("li");
-            li.appendChild(document.createTextNode(event.data));
-            list.appendChild(li);
-        }
+                ws.onmessage = function(event) {
+                	console.log(event);
+                    let li = document.createElement("li");
+                    li.appendChild(document.createTextNode(event.data));
+                    list.appendChild(li);
+                }
+                
+                ws.onclose = function (event) {
+                    if (event.wasClean) {
+                        ws.send(name + " saiu do bate-papo");
+                    } else {
+                        ws.send(name + " teve sua conexão fechada abruptamente");
+                    }
+                };
+                
+            	window.addEventListener('beforeunload', function () {
+            	    ws.close();
+            	});
+    		}    		
+    	});
     </script>
 </body>
 </html>
